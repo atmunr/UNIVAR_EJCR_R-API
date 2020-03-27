@@ -1,2 +1,2 @@
 importFrom("stats", "qt")
-import(ggplot2)
+import("ggplot2")

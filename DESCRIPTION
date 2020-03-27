@@ -9,6 +9,7 @@ Author: Tomás Antonelli [cre]
 Maintainer: Tomás Antonelli <atmunr@gmail.com>
 Description: OpenCPU API for UNIVAR_EJCR_R, a program for univariate calibration, EJCR and comparison of RMSE.
 Depends: R (>= 3.6.0)
+Imports: ggplot2
 Suggests: testthat
 License: MIT
 Encoding: UTF-8
