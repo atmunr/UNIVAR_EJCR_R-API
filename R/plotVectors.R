@@ -10,7 +10,7 @@ plotVectors <- function (x, y, title, xlabel, ylabel, slope, intercept) {
 
 	if (!missing(title)) {
 		p <- p + ggtitle(title)
-		p <- p + theme(plot.title = element_text(hjust = 0.5))
+		p <- p + theme(plot.title = element_text(hjust = .5))
 	}
 
 	if (!missing(xlabel)) p <- p + labs(x = xlabel)
