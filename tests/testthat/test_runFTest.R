@@ -7,12 +7,12 @@ test_that("F-test figures look right", {
 	devres <- 0.1032031
 
 	a <- runFTest(samples, devres)
-	tol <- .01
+	tol <- 1e-3
 
-	expect_equal(a[[1]], 0.08212457, tolerance = tol)
-	expect_equal(a[[2]], 1.579208, tolerance = tol)
-	expect_equal(a[[3]], 2.598881, tolerance = tol)
-	expect_equal(a[[4]], 0.214, tolerance = tol)
+	expect_equal(a[[1]],  .08212457, tolerance = tol)
+	expect_equal(a[[2]], 1.57920800, tolerance = tol)
+	expect_equal(a[[3]], 2.59888100, tolerance = tol)
+	expect_equal(a[[4]],  .21400000, tolerance = tol)
 	expect_equal(a[[5]], TRUE)
 })
 
