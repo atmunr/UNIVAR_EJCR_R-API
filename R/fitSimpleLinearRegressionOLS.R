@@ -1,6 +1,8 @@
 # Fits a simple linear regression line by ordinary least squares on some x and
-# y vectors.
+# y vectors. Returns the fitted line and some figures of merit.
 fitSimpleLinearRegressionOLS <- function (x, y) {
+
+	corcoef <- cor(x,y)
 
 	xc <- x - mean(x)
 	yc <- y  - mean(y)
@@ -18,5 +20,18 @@ fitSimpleLinearRegressionOLS <- function (x, y) {
 
 	t <- qt(.975, df = length(x) - 2)
 
-	return (list( A, s_A, t*s_A, B, s_B, t*s_B, E, s_E ))
+	# Figures of merit
+	gamma   <- abs(A) / s_E
+	s0 <- (1 / gamma) * sqrt(1 + (1 / length(x))
+		+ ((mean(x) ^ 2) / sum((x - mean(x)) ^ 2))
+	)
+
+	# Detection, decision and quantitation limits
+	decisionlim <- qt(0.95, df = length(x) - 2) * s0
+	detectlim   <- 2 * decisionlim
+	quantlim    <- 10 * s0
+
+	return (list( A, s_A, t*s_A, B, s_B, t*s_B, E, s_E,
+		gamma, decisionlim, detectlim, quantlim, corcoef))
 }
+
