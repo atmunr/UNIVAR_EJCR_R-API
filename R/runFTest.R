@@ -1,38 +1,28 @@
 
-# Runs an F-test on a set of signals and the deviation of residuals.
-# Each sample of signals is a row in a 2D matrix.
-runFTest <- function (samples, devres) {
+# Runs an f-test on a list of replicate sets, using
+# the standard deviation of residuals, and returning some
+runFTest <- function (replicate_sets, deviation_residuals) {
 
-	if (ncol(samples) < 2) { return (list(NULL, NULL, NULL, NULL)) }
+	n_samples <- nrow(replicate_sets)
+	n_datapoints <- n_samples * ncol(replicate_sets)
 
-	# Total number of data points
-	dp <- nrow(samples) * ncol(samples)
+	# All signals, mean centered per sample
+	signals.c <- c()
+	for (i in 1 : n_samples) {
+		replicates <- replicate_sets[i,]
+		m <- mean(replicates)
 
-	i <- 1 # means[i,j] is the mean of the i-th sample.
-	means <- matrix(nrow = nrow(samples), ncol = ncol(samples))
-
-	for (signals in as.list(data.frame(t(samples)))) {
-		signals    <- signals[!is.na(signals)] # Filter NAs
-		means[i, ] <- c(
-			mean(signals) * rep(1, length(signals)),
-			rep(0, ncol(samples) - length(signals))
-		)
-		i <- i + 1
+		for (s in replicates) {
+			signals.c <- c(signals.c, s - m)
+		}
 	}
-	means <- c(means)
 
-	signals <- samples[, 1] # Signals, replacing NAs with zeros
-	for (i in 2 : ncol(samples)) { signals <- c(signals, samples[, i]) }
-	signals[is.na(signals)] <- 0
+	deviation <- sqrt(sum((signals.c) ^ 2)) ^ 2 / (n_datapoints - n_samples)
+	noise <- sqrt(deviation)
 
-	# Standard deviation of signals and estimated noise level
-	dev   <- sqrt(sum((signals - means) ^ 2)) ^ 2 / (dp - nrow(samples))
-	noise <- sqrt(dev)
-
-	# Expected value, p-value and critical f value
-	fexpect    <- devres ^ 2 / dev
-	pvalue     <- pf(fexpect, dp -2 , dp - nrow(samples), lower.tail = FALSE)
-	critfvalue <- qf(.95, dp - 2, dp - nrow(samples))
+	fexpect    <- deviation_residuals ^ 2 / deviation
+	pvalue     <- pf(fexpect, n_datapoints -2 , n_datapoints - n_samples, lower.tail = FALSE)
+	critfvalue <- qf(.95, n_datapoints - 2, n_datapoints - n_samples)
 	pass       <- pvalue > .05
 
 	return (list(noise, fexpect, critfvalue, pvalue, pass))
