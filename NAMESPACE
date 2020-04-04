@@ -1,2 +1,3 @@
 importFrom("stats", "qt", "pf", "qf", "cor")
 import("ggplot2")
+import("zeallot")
