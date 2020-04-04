@@ -1,6 +1,6 @@
 
-# Runs an f-test on a list of replicate sets, using
-# the standard deviation of residuals, and returning some
+# Runs an F-test on a list of replicate sets, using
+# the standard deviation of residuals.
 runFTest <- function (replicate_sets, deviation_residuals) {
 
 	n_samples <- nrow(replicate_sets)
