@@ -13,3 +13,26 @@ getMeansOfReplicates <- function (replicates) {
 	}
 	return (means)
 }
+
+# Takes a set of samples and returns two vectors: one for the analytes
+# and one for the signals. Each analyte will appear as many times as
+# its corresponding sample contains replicate signals.
+#
+# Example:
+# >> createDataPoints(matrix(1 : 9), ncol = 3)
+# >> [[1]]
+# >> [1] 1 1 2 2 3 3
+# >>
+# >> [[2]]
+# >> [1] 4 7 5 8 6 9
+createDataPoints <- function (samples) {
+	analytes <- c()
+	signals  <- c()
+	for (i in 1 : nrow(samples)) {
+		for (j in 2 : ncol(samples)) {
+			analytes <- c(analytes, samples[i,1])
+			signals  <- c(signals,  samples[i,j])
+		}
+	}
+	return (list(analytes, signals))
+}
