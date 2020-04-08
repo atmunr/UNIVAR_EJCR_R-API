@@ -1,4 +1,4 @@
-context("fitSimpleLinearRegressionOLS")
+context("calibrate.R")
 
 test_that("Line is fit and other values are computed correctly", {
 

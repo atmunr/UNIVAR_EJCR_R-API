@@ -1,7 +1,7 @@
-context("runFTest")
+context("ftest.R")
 
 test_that("F-test figures look right", {
-	
+
 	samples <- data.matrix(read.csv('calibration_data.txt',
 		header = FALSE, sep = ''))[, -1]
 	devres <- 0.1032031
