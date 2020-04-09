@@ -1,6 +1,22 @@
 
-# Runs an F-test on a list of replicate sets, using
-# the standard deviation of residuals.
+#' Run an F-test on a list of replicate sets.
+#'
+#' Runs an F-test on a list of replicate sets. using the standard deviation
+#' of residuals.
+#'
+#' @param replicate_sets A matrix where each row represents a list of replicate
+#' signals. If there are some values missing in a sample, use NA instead.
+#' @param deviation_residuals The residual standard deviation obtained
+#' from calibration.
+#'
+#' @return Returns a list with five values.
+#' \itemize {
+#'   \item noise The estimated amount of noise.
+#'   \item fexpect The resulting expectation value.
+#'   \item critvalue The resulting critical value.
+#'   \item pvalue The p-value.
+#'   \item pass TRUE if the p-value is less than 0.05.
+#' }
 runFTest <- function (replicate_sets, deviation_residuals) {
 
 	n_samples <- nrow(replicate_sets)
@@ -21,9 +37,9 @@ runFTest <- function (replicate_sets, deviation_residuals) {
 	noise <- sqrt(deviation)
 
 	fexpect    <- deviation_residuals ^ 2 / deviation
-	pvalue     <- pf(fexpect, n_datapoints -2 , n_datapoints - n_samples, lower.tail = FALSE)
+	cumuldist  <- pf(fexpect, n_datapoints - 2 , n_datapoints - n_samples, lower.tail = FALSE)
 	critfvalue <- qf(.95, n_datapoints - 2, n_datapoints - n_samples)
-	pass       <- pvalue > .05
+	pass       <- cumuldist > .05
 
-	return (list(noise, fexpect, critfvalue, pvalue, pass))
+	return (list(noise, fexpect, critfvalue, cumuldist, pass))
 }

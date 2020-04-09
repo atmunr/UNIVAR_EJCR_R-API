@@ -1,6 +1,17 @@
 
-# Fits a simple linear regression line by ordinary least squares on some x and
-# y vectors. Returns the fitted line and some figures of merit.
+#' Fit a simple linear regression line by ordinary least squares.
+#'
+#' Takes some x and y vectors, fits a line y = mx + h, and also returns
+#' some figures of merit.
+#'
+#' @param x The explanatory / independent variables.
+#' @param y The response / dependent variables.
+#'
+#' @return The slope and intercept of the fitted line, the residuals,
+#' measures of uncertainty and detection limits for the substances.
+#'
+#' @examples
+#' fitSimpleLinearRegressionOLS(c(1,2,3,4,5), c(2,4,7,8,10))
 fitSimpleLinearRegressionOLS <- function (x, y) {
 
 	corcoef <- cor(x, y)
