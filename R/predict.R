@@ -41,8 +41,9 @@ predictAnalyteConcentrations <- function (replicate_sets, slope, intercept) {
 #' @param replicate_sets A matrix where the i-th row holds the signal values
 #' that correspond to the i-th testing sample.
 #'
-#' @param calib_analytes A vector where the j-th value is the concentration of
-#' analyte for the j-th calibration sample.
+#' @param calib_analytes A vector with all calibration analyte concentrations,
+#' in the order in which the samples appear, and each one repeated for as many
+#' replicate signals it has.
 #'
 #' @param calib_signals A matrix where the j-th row holds the signal values
 #' that correspond to the j-th calibration sample.
