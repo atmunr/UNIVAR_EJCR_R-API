@@ -8,11 +8,14 @@ source("R/utils.R")
 #'
 #' @param replicate_sets A matrix where each row represents a list of replicate
 #' signals. If there are some values missing in a sample, use NA instead.
+#'
 #' @param slope Slope of the linear model.
+#'
 #' @param intercept Intercept of the linear model.
 #'
 #' @return A vector where the i-th value is the predicted concentration of
 #' analyte for the i-th row/sample.
+#'
 predictAnalyteConcentrations <- function (replicate_sets, slope, intercept) {
 	
 	signalmeans <- getMeansOfReplicates(replicate_sets)
@@ -24,9 +27,6 @@ predictAnalyteConcentrations <- function (replicate_sets, slope, intercept) {
 	
 	return (predicted)
 }
-
-# Estimates the standard deviation of the predicted values for the analytes,
-# based on their signals, and the data set used for calibration.
 
 #' Estimate standard deviation of predicted analyte concentration values.
 #'
@@ -49,7 +49,9 @@ predictAnalyteConcentrations <- function (replicate_sets, slope, intercept) {
 #' that correspond to the j-th calibration sample.
 #'
 #' @param gamma The gamma coefficient.
+#'
 #' @param slope Slope of the linear model.
+#'
 estimateUncertaintyOfPredictedValues <- function
 (predicted_analytes, replicate_sets, calib_analytes, calib_signals, gamma, slope) {
 

@@ -5,6 +5,7 @@
 #' some figures of merit.
 #'
 #' @param x The explanatory / independent variables.
+#'
 #' @param y The response / dependent variables.
 #'
 #' @return The slope and intercept of the fitted line, the residuals,
@@ -12,6 +13,7 @@
 #'
 #' @examples
 #' fitSimpleLinearRegressionOLS(c(1,2,3,4,5), c(2,4,7,8,10))
+#'
 fitSimpleLinearRegressionOLS <- function (x, y) {
 
 	corcoef <- cor(x, y)

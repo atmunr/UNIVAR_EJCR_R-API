@@ -6,6 +6,7 @@
 #'
 #' @param replicate_sets A matrix where each row represents a list of replicate
 #' signals. If there are some values missing in a sample, use NA instead.
+#'
 #' @param deviation_residuals The residual standard deviation obtained
 #' from calibration.
 #'
@@ -17,6 +18,7 @@
 #'   \item pvalue The p-value.
 #'   \item pass TRUE if the p-value is less than 0.05.
 #' }
+#'
 runFTest <- function (replicate_sets, deviation_residuals) {
 
 	n_samples <- nrow(replicate_sets)
