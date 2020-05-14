@@ -26,10 +26,12 @@ runFTest <- function (replicate_sets, deviation_residuals) {
 	signals.c <- c()
 	for (i in 1 : n_samples) {
 		replicates <- replicate_sets[i,]
-		m <- mean(replicates)
+
+		m <- mean(replicates, na.rm = TRUE)
 
 		for (s in replicates) {
 			signals.c <- c(signals.c, s - m)
+			signals.c[is.na(signals.c)] <- 0
 		}
 	}
 
