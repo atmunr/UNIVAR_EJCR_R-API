@@ -65,7 +65,7 @@ estimateUncertaintyOfPredictedValues <- function
 
 		s <- (1 / gamma) * sqrt(1 / n_replicates
 			+ (1 / n_calib_datapoints)
-			+ ((mean(signals) - mean(calib_signals)) ^ 2)
+			+ ((mean(signals, na.rm = TRUE) - mean(calib_signals, na.rm = TRUE)) ^ 2)
 			/ ((slope ^ 2) * sum((calib_analytes - mean(calib_analytes)) ^ 2))
 		)
 		deviation <- c(deviation, s)
